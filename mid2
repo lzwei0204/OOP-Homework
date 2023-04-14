@@ -1,33 +1,150 @@
 import java.util.Scanner;
 
-class calMath{
-	double a;
-	double b;
+class human{
+	String Name;
+	boolean Gender;
+	int Age;
+	boolean Avengers;
+
+    public human(String Name, boolean Gender, int Age, boolean Avengers) {
+        this.Name = Name;
+        this.Gender = Gender;
+        this.Age = Age;
+        this.Avengers = Avengers;
+    }
+    
+	void doShowInfo(){
+	System.out.println("Name:"+Name);
+	System.out.println("Gender:"+Gender);
+	System.out.println("Age:"+Age);
+	System.out.println("Avengers:"+Avengers);
+	}
 	
-	 public calMath(double a, double b) {
-	        this.a = a;
-	        this.b = b;
-	    }
-	 
-	void run() {
-		double n = 0;
-		for(int i = 1; i <= b; i++) {
-			n = (a * i) / (b - i + 1);
+	public static void showWelcom(){
+		System.out.println("***歡迎使用復仇者聯盟CP值計算器***");
+	}
+	
+}
+
+class Avenger extends human{
+	private double Speed;
+
+	public Avenger(String Name, boolean Gender, int Age, boolean Avengers, double Speed) {
+        super(Name, Gender, Age, Avengers);
+		this.Speed = Speed;
+    }
+
+	@Override
+	public void doShowInfo(){
+		super.doShowInfo();
+		System.out.println("Speed:"+Speed);
+	}
+	
+	double goCP(){
+		if(this.Gender == true) {
+			return (Speed * 2)/ Age;
+		}else {
+			return (Speed)/ Age;
 		}
-		System.out.println("結果為:"+n);
+	}
+	
+	int getAge() {
+		return Age;
+	}
+	
+	double getSp() {
+		return Speed;
 	}
 }
 
-public class mid1{
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+class NoAvenger extends human{
+
+	public NoAvenger(String Name, boolean Gender, int Age, boolean Avengers) {
+        super(Name, Gender, Age, Avengers);
+    }
+
+	void noCP (double x,double y) {
+        double c = (x * y)/ Age;
+        System.out.println(Name+"的CP="+c);
+	}
+	void noCP (double x) {
+        double c = x/ Age;
+        System.out.println(Name+"的CP:"+c);
+	}
+}
+
+class SpecialAvenger extends Avenger{
+	private double Power;
+
+	public SpecialAvenger(String Name, boolean Gender, int Age, boolean Avengers, double Speed, double Power) {
+        super(Name, Gender, Age, Avengers, Speed);
+		this.Power = Power;
+    }
+
+	@Override
+	public void doShowInfo(){
+		super.doShowInfo();
+		System.out.println("Power:"+Power);
+	}
+	
+	@Override
+	double goCP(){
+		if(this.Gender == true) {
+			return ((getSp() * 2)/ Age)+getSp();
+		}else {
+			return ((getSp())/ Age)+getSp();
+		}
+	}
+}
+
+public class mid2 {
+	public static void main(String[] argv) {
+		human.showWelcom();
 		
-		System.out.println("請輸入a");
-        double x = sc.nextDouble();
-        System.out.println("請輸入b");
-        double y = sc.nextDouble();
-		calMath[] calMath = new calMath[1];
-        calMath[0] = new calMath(x,y);
-        calMath[0].run();
+		Avenger[] Avenger = new Avenger[2];
+		Avenger[0] = new Avenger("Black Widow",false,35,true,17.2);
+		Avenger[1] = new Avenger("Iron Man",true,50,true,23.1);
+		SpecialAvenger[] SpecialAv = new SpecialAvenger[3];
+		SpecialAv[0] = new SpecialAvenger("Spider man",true,18,true,22.7,5.1);
+		SpecialAv[1] = new SpecialAvenger("Thor",true,200,true,24.5,9.5);
+		SpecialAv[2] = new SpecialAvenger("Hulk",true,60,true,9.9,12.3);
+		NoAvenger[] NoAvenger = new NoAvenger[1];
+		NoAvenger[0] = new NoAvenger("Loki",true,180,false);
+		
+		for(int i=0;i<Avenger.length;i++) {
+			Avenger[i].doShowInfo();
+			System.out.println();
+		}
+
+		for(int i=0;i<Avenger.length;i++) {
+			SpecialAv[i].doShowInfo();
+			System.out.println();
+		}
+
+		for(int i=0;i<NoAvenger.length;i++) {
+			NoAvenger[i].doShowInfo();
+			System.out.println();
+		}
+        
+        for (int i=0;i<Avenger.length;i++) {
+            double CP ;
+            CP = Avenger[i].goCP();	
+            System.out.println(Avenger[i].Name + " 的CP值: " + CP);
+        }
+        
+        for (int i=0;i<NoAvenger.length;i++) {
+            double CP = 0,x = 90, y = 2;
+            if 	(y==0) {
+            	NoAvenger[i].noCP(x);
+            }else {
+            	NoAvenger[i].noCP(x, y);	
+            }	
+        }
+
+        for (int i=0;i<SpecialAv.length;i++) {
+            double CP ;
+            CP = SpecialAv[i].goCP();	
+            System.out.println(SpecialAv[i].Name + " 的CP值: " + CP);
+        }
 	}
 }
