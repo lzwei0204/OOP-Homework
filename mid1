@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+class calMath{
+	double a;
+	double b;
+	
+	 public calMath(double a, double b) {
+	        this.a = a;
+	        this.b = b;
+	    }
+	 
+	void run() {
+		double n = 0;
+		for(int i = 1; i <= b; i++) {
+			n += (a * i) / (b - i + 1);
+		}
+		System.out.println("結果為:"+n);
+	}
+}
+
+public class mid1{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("請輸入a");
+        double x = sc.nextDouble();
+        System.out.println("請輸入b");
+        double y = sc.nextDouble();
+		calMath[] calMath = new calMath[1];
+        calMath[0] = new calMath(x,y);
+        calMath[0].run();
+	}
+}
