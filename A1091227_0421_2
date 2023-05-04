@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class A1091227_0421_2{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("請輸入日期（YYYY/MM/DD 或 MM/DD/YYYY）：");
+        String input = sc.nextLine();
+
+        int year, month, day;
+
+        if (input.matches("^\\d{4}/\\d{2}/\\d{2}$")) {
+            year = Integer.parseInt(input.substring(0, 4));
+            month = Integer.parseInt(input.substring(5, 7));
+            day = Integer.parseInt(input.substring(8, 10));
+        } else if (input.matches("^\\d{2}/\\d{2}/\\d{4}$")) {
+            year = Integer.parseInt(input.substring(6, 10));
+            month = Integer.parseInt(input.substring(0, 2));
+            day = Integer.parseInt(input.substring(3, 5));
+        } else {
+            System.out.println("輸入的日期格式不正確。");
+            return;
+        }
+        System.out.println("年份：" + year);
+        System.out.println("月份：" + month);
+        System.out.println("日期：" + day);
+    }
+}
